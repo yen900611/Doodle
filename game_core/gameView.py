@@ -1,4 +1,7 @@
+import os
+
 from setting import *
+from os import path
 import pygame
 
 class PygameView():
@@ -14,6 +17,11 @@ class PygameView():
 
     def draw_screen(self):
         self.screen.fill((WHITE))
+        # filepath = os.path.join(os.path.dirname(__file__), 'image/background.jpg')
+        # print(filepath)
+        background = pygame.image.load(path.join(IMAGE_DIR,"background.jpg"))
+        background = pygame.transform.scale(background, (389, 550))
+        self.screen.blit(background, (0, 0))
 
     def flip(self):
         pygame.display.flip()
