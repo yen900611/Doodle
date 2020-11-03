@@ -16,6 +16,9 @@ class EventController():
         if key_pressed_list[pygame.K_RIGHT]:
             return "MOVE_RIGHT"
 
+        if key_pressed_list[pygame.K_UP]:
+            return "Jump"
+
         return "NONE"
 
     def is_running(self):
