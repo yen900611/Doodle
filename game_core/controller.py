@@ -9,14 +9,17 @@ class EventController():
         """
         Get the command according to the pressed key command
         """
+        command = ["None"]
         key_pressed_list = pygame.key.get_pressed()
 
         if key_pressed_list[pygame.K_LEFT]:
-            return "MOVE_LEFT"
+            command.append("MOVE_LEFT")
         if key_pressed_list[pygame.K_RIGHT]:
-            return "MOVE_RIGHT"
+            command.append("MOVE_RIGHT")
 
-        return "NONE"
+        return {"Address":"GameMode",
+                "Type":type(command),
+                "Data":command}
 
     def is_running(self):
         """ Handle the event from window , mouse or button.
@@ -39,6 +42,4 @@ class EventController():
 
         self.m_mediator.send_info(self,game_command)
 
-    def request(self,game_info):
-        pass
 

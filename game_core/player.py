@@ -14,14 +14,14 @@ class Player(pygame.sprite.Sprite):
     def update(self, command):
         self.move(command)
         self.keep_in_screen()
+        self.jump()
         pass
 
     def move(self,direction):
-        if direction == move_right:
+        if move_right in direction:
             self.rect.x +=1
-        elif direction == move_left:
+        if move_left in direction:
             self.rect.x -=1
-        else:
             pass
 
     def keep_in_screen(self):
@@ -31,4 +31,7 @@ class Player(pygame.sprite.Sprite):
             self.rect.right = 0
 
     def draw(self):
+        pass
+
+    def jump(self):
         pass

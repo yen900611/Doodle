@@ -9,13 +9,17 @@ class PlayingMode():
         self.all_sprite = pygame.sprite.Group()
         self.player = Player(WIDTH/2,HEIGHT-50)
         self.all_sprite.add(self.player)
+        self.address = "GameMode"
         pass
 
-
-    def update(self,command):
+    def update(self,data):
+        command = None
+        if data["Address"] == self.address:
+            command = data["Data"]
         self.player.update(command)
-        return self.all_sprite
-        pass
+        return {"Address":"GameView",
+                "Type":type(self.all_sprite),
+                "Data":self.all_sprite}
 
     def ticks(self,fps = FPS):
         self.clock.tick(fps)
@@ -25,7 +29,4 @@ class PlayingMode():
             self.running = False
 
     '''碰撞'''
-
-    # TODO
-    # 解碼Function放在update裡面-->規定command的格式
 

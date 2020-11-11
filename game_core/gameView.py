@@ -6,8 +6,17 @@ class PygameView():
         pygame.display.init()
         self.screen = pygame.display.set_mode((WIDTH,HEIGHT))
         pygame.display.set_caption("Doodle Jump!")
+        self.address = "GameView"
 
-    def draw(self,all_sprite):
+    def draw(self,data):
+        '''
+        每個frame呼叫一次，把角色畫在螢幕上
+        :param all_sprite:
+        :return:
+        '''
+        all_sprite = None
+        if data["Address"] == self.address:
+            all_sprite = data["Data"]
         self.draw_screen()
         all_sprite.draw(self.screen)
         pass
