@@ -1,11 +1,13 @@
 import pygame
 from player import Player
 from setting import *
+import random
 
 class PlayingMode():
     def __init__(self):
         self.running = True
         self.clock = pygame.time.Clock()
+        '''set group'''
         self.all_sprite = pygame.sprite.Group()
         self.player = Player(WIDTH/2,HEIGHT-50)
         self.all_sprite.add(self.player)
@@ -17,12 +19,14 @@ class PlayingMode():
         return self.all_sprite
         pass
 
+
     def ticks(self,fps = FPS):
         self.clock.tick(fps)
 
     def handle_event(self,is_close:bool):
         if is_close:
             self.running = False
+
 
     '''碰撞'''
 

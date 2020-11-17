@@ -21,16 +21,19 @@ class Player(pygame.sprite.Sprite):
     def update(self, command):
         print(command)
         # TODO 1 change state
-        if command == "Jump":
-            self.state = "Jump"
-        else:
-            self.state = "None"
-        # TODO 2 detect state to jump
-        self.move(command)
+        if command == "Jump" and self.state == 'NONE':
+            self.jump()
+
+        #TODO 2 detect state to jump
+        self.move(self.state)
         self.keep_in_screen()
-        self.jump()
         self.velocity_y = self.velocity_y + self.acceleration * self.time_interval
         self.rect.y = self.rect.y+self.velocity_y
+        if self.rect.y >= HEIGHT:
+            self.velocity_y = 0
+            self.rect.y = HEIGHT-30
+            self.acceleration = 0
+            self.state = 'NONE'
         pass
 
     def move(self,direction):
@@ -50,18 +53,6 @@ class Player(pygame.sprite.Sprite):
     def draw(self):
         pass
     def jump(self):
-        if self.state == "Jump":
-            self.velocity_y = -10
-         
-
-
-
-
-
-
-
-
-
-
-
-
+        self.state = "Jump"
+        self.velocity_y = -15
+        self.acceleration = 9.8
