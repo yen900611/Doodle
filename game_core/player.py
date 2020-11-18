@@ -5,23 +5,38 @@ class Player(pygame.sprite.Sprite):
     def __init__(self,x,y):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface((20,40))
-        self.image.fill(BLACK)
+        self.image.fill(WHITE)
         self.rect = self.image.get_rect()
         self.rect.centerx = x
         self.rect.centery = y
-        self.state = None
+        #
+        self.acceleration = 9.8 #加速度
+        self.velocity_y = 0
+        self.hight = 10.0
+        self.time_interval = 1 / FPS
+        self.state ="NONE" # BEGIN JUMP-UP JUMP-DOWN
 
     def update(self, command):
+        # TODO 1 change state
+        if "Jump" in command and self.state == 'NONE':
+            self.jump()
+
         self.move(command)
         self.keep_in_screen()
-        self.jump()
+        self.velocity_y = self.velocity_y + self.acceleration * self.time_interval
+        self.rect.y = self.rect.y+self.velocity_y
+        if self.rect.y >= HEIGHT:
+            self.velocity_y = 0
+            self.rect.y = HEIGHT-30
+            self.acceleration = 0
+            self.state = 'NONE'
         pass
 
     def move(self,direction):
         if move_right in direction:
-            self.rect.x +=1
+            self.rect.x +=3
         if move_left in direction:
-            self.rect.x -=1
+            self.rect.x -=3
             pass
 
     def keep_in_screen(self):
@@ -34,4 +49,6 @@ class Player(pygame.sprite.Sprite):
         pass
 
     def jump(self):
-        pass
+        self.state = "Jump"
+        self.velocity_y = -15
+        self.acceleration = 9.8

@@ -17,6 +17,9 @@ class EventController():
         if key_pressed_list[pygame.K_RIGHT]:
             command.append("MOVE_RIGHT")
 
+        if key_pressed_list[pygame.K_UP]:
+            command.append("Jump")
+
         return {"Address":"GameMode",
                 "Type":type(command),
                 "Data":command}
