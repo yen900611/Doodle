@@ -1,6 +1,6 @@
-from .playingMode import PlayingMode
-from .controller import EventController
-from .gameView import PygameView
+from playingMode import PlayingMode
+from controller import EventController
+from gameView import PygameView
 
 class Doodle:
     def __init__(self):

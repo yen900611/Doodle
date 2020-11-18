@@ -1,5 +1,5 @@
 import pygame
-from game_core.Doodle_Jump import Doodle
+from Doodle_Jump import Doodle
 
 if __name__ == "__main__":
     pygame.init()
