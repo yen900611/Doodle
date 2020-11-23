@@ -5,11 +5,12 @@ class Player(pygame.sprite.Sprite):
     def __init__(self,x,y):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface((20,40))
-        self.image.fill(WHITE)
+        self.image = pygame.image.load(path.join(IMAGE_DIR, "player.png"))
+        self.image = pygame.transform.scale(self.image, (90, 90))
+        # self.image.fill(WHITE)
         self.rect = self.image.get_rect()
         self.rect.centerx = x
         self.rect.centery = y
-        #
         self.acceleration = 9.8 #加速度
         self.velocity_y = 0
         self.hight = 10.0
@@ -25,9 +26,9 @@ class Player(pygame.sprite.Sprite):
         self.keep_in_screen()
         self.velocity_y = self.velocity_y + self.acceleration * self.time_interval
         self.rect.y = self.rect.y+self.velocity_y
-        if self.rect.y >= HEIGHT:
+        if self.rect.y >= HEIGHT-100:
             self.velocity_y = 0
-            self.rect.y = HEIGHT-30
+            self.rect.y = HEIGHT-100
             self.acceleration = 0
             self.state = 'NONE'
         pass
