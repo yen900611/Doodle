@@ -22,6 +22,9 @@ class Player(pygame.sprite.Sprite):
         if "Jump" in command and self.state == 'NONE':
             self.jump()
 
+        if self.state == "Jump" and self.velocity_y > 0:
+            self.state = "Down"
+
         self.move(command)
         self.keep_in_screen()
         self.velocity_y = self.velocity_y + self.acceleration * self.time_interval
@@ -51,5 +54,5 @@ class Player(pygame.sprite.Sprite):
 
     def jump(self):
         self.state = "Jump"
-        self.velocity_y = -15
+        self.velocity_y = -10
         self.acceleration = 9.8

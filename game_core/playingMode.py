@@ -24,9 +24,12 @@ class PlayingMode():
         command = None
         if data["Address"] == self.address:
             command = data["Data"]
+        print(self.player.state)
+        self.collision()
         self.player.update(command)
         self.scroll_window()#######
         self.boards.update()
+
         # print(len(self.boards))
         return {"Address":"GameView",
                 "Type":type(self.all_sprite),
@@ -63,7 +66,7 @@ class PlayingMode():
         self.all_sprite.add(self.board)
 
     def scroll_window(self):
-        if self.player.rect.centery < 300:
+        if self.player.rect.centery < 200:
             for self.board in self.boards:#原：for board in self.boards:
                 self.board.rect.centery += 3#board.rect.centery += 3
 
@@ -71,3 +74,13 @@ class PlayingMode():
             self.board = Board(random.randint(0, 389), -80)
             self.boards.add(self.board)
             self.all_sprite.add(self.board)
+
+    def collision(self):
+        hits = pygame.sprite.spritecollide(self.player,self.boards, False)
+        if hits:
+            self.player.rect.bottom = hits[0].rect.top+20
+            self.player.velocity_y = 0
+        # #     self.player.acceleration = 0
+            self.player.state = 'NONE'
+        # else:
+        #     self.player.acceleration = 9.8
