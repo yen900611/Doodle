@@ -12,11 +12,8 @@ class PlayingMode():
         self.all_sprite = pygame.sprite.Group()
         self.boards = pygame.sprite.Group()
         self._create_board()
-        # self._create_board = pygame.sprite.Group()
         self.player = Player(WIDTH/2,HEIGHT-50)
         self.all_sprite.add(self.player)
-        self.boards.add(self.board)###原：self.all_sprite.add(self.board)
-        # self.boards.add(self._create_board())######
         self.address = "GameMode"
         pass
 
@@ -24,10 +21,10 @@ class PlayingMode():
         command = None
         if data["Address"] == self.address:
             command = data["Data"]
-        print(self.player.state)
+        # print(self.player.state)
         self.collision()
         self.player.update(command)
-        self.scroll_window()#######
+        self.scroll_window()
         self.boards.update()
 
         # print(len(self.boards))
@@ -70,7 +67,7 @@ class PlayingMode():
             for self.board in self.boards:#原：for board in self.boards:
                 self.board.rect.centery += 3#board.rect.centery += 3
 
-        if len(self.boards) <=6:
+        if len(self.boards) <=3:
             self.board = Board(random.randint(0, 389), -80)
             self.boards.add(self.board)
             self.all_sprite.add(self.board)
@@ -78,9 +75,8 @@ class PlayingMode():
     def collision(self):
         hits = pygame.sprite.spritecollide(self.player,self.boards, False)
         if hits:
-            self.player.rect.bottom = hits[0].rect.top+20
+            self.player.rect.bottom = hits[0].rect.top
             self.player.velocity_y = 0
-        # #     self.player.acceleration = 0
-            self.player.state = 'NONE'
+            self.player.state = "NONE"
         # else:
         #     self.player.acceleration = 9.8

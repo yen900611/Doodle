@@ -15,3 +15,4 @@ move_left = "MOVE_LEFT"
 
 '''data path'''
 IMAGE_DIR = path.join(path.dirname(__file__),"image")
+BACKGROUND_IMAGE = ["background.jpg", "background_2.jpg"]
