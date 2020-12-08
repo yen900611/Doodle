@@ -7,7 +7,6 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.Surface((20,40))
         self.image = pygame.image.load(path.join(IMAGE_DIR, "player.png"))
         self.image = pygame.transform.scale(self.image, (90, 90))
-        # self.image.fill(WHITE)
         self.rect = self.image.get_rect()
         self.rect.centerx = x
         self.rect.centery = y
@@ -17,21 +16,15 @@ class Player(pygame.sprite.Sprite):
         self.time_interval = 1 / FPS
         self.state ="START" # BEGIN JUMP-UP JUMP-DOWN
 
-    def update(self, command):
+    def update(self, command, is_collide):
         # TODO 1 change state
-        if "Jump" in command and (self.state == "START" or "NONE"):
+        if "Jump" in command and is_collide:
             self.jump()
-
-        if self.state == "Jump" and self.velocity_y > 0:
-            self.state = "Down"
 
         self.move(command)
         self.keep_in_screen()
         self.velocity_y = self.velocity_y + self.acceleration * self.time_interval
         self.rect.y = self.rect.y+self.velocity_y
-        if self.rect.y >= HEIGHT-100 and self.state == "START":
-            self.velocity_y = 0
-            self.rect.y = HEIGHT-100
         pass
 
     def move(self,direction):
@@ -51,6 +44,5 @@ class Player(pygame.sprite.Sprite):
         pass
 
     def jump(self):
-        self.state = "Jump"
-        self.velocity_y = -10
+        self.velocity_y = -15
         # self.acceleration = 9.8

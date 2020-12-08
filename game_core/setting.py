@@ -1,6 +1,6 @@
 from os import path
-WIDTH = 389
-HEIGHT = 550
+WIDTH = 450
+HEIGHT = 600
 FPS = 30
 
 '''Color'''

@@ -21,13 +21,10 @@ class PlayingMode():
         command = None
         if data["Address"] == self.address:
             command = data["Data"]
-        # print(self.player.state)
-        self.collision()
-        self.player.update(command)
+        self.player.update(command, self.collision())
         self.scroll_window()
         self.boards.update()
 
-        # print(len(self.boards))
         return {"Address":"GameView",
                 "Type":type(self.all_sprite),
                 "Data":self.all_sprite}
@@ -40,35 +37,23 @@ class PlayingMode():
             self.running = False
 
     def _create_board(self):
-        self.board = Board(random.randint(0, 389), -80)
+        self.board = Board(WIDTH /2, HEIGHT - 10, WIDTH, 20)
         self.boards.add(self.board)#
         self.all_sprite.add(self.board)
-        self.board = Board(random.randint(0, 389), random.randint(0, 80))
-        self.boards.add(self.board)#原：self.all_sprite.add(self.board)
-        self.all_sprite.add(self.board)
-        self.board = Board(random.randint(0, 389), random.randint(80, 160))
-        self.boards.add(self.board)#
-        self.all_sprite.add(self.board)
-        self.board = Board(random.randint(0, 389), random.randint(160, 240))
-        self.boards.add(self.board)#
-        self.all_sprite.add(self.board)
-        self.board = Board(random.randint(0, 389), random.randint(240, 320))
-        self.boards.add(self.board)#
-        self.all_sprite.add(self.board)
-        self.board = Board(random.randint(0, 389), random.randint(320, 400))
-        self.boards.add(self.board)#
-        self.all_sprite.add(self.board)
-        self.board = Board(random.randint(0, 389), random.randint(400, 480))
-        self.boards.add(self.board)#
-        self.all_sprite.add(self.board)
+        for i in range(6):
+            self.board = Board(random.randint(20, WIDTH), random.randint(0, HEIGHT), random.randint(100,200), 20)
+            self.boards.add(self.board)#
+            self.all_sprite.add(self.board)
 
     def scroll_window(self):
-        if self.player.rect.centery < 200:
+        if self.player.rect.top < 100:
             for self.board in self.boards:#原：for board in self.boards:
                 self.board.rect.centery += 3#board.rect.centery += 3
+        if self.player.rect.top < 0:
+            self.player.rect.top = 0
 
-        if len(self.boards) <=3:
-            self.board = Board(random.randint(0, 389), -80)
+        if len(self.boards) <=5:
+            self.board = Board(random.randint(0, 389), -80, random.randint(100,200), 20)
             self.boards.add(self.board)
             self.all_sprite.add(self.board)
 
@@ -77,6 +62,6 @@ class PlayingMode():
         if hits:
             self.player.rect.bottom = hits[0].rect.top
             self.player.velocity_y = 0
-            self.player.state = "NONE"
-        # else:
-        #     self.player.acceleration = 9.8
+            return True
+        return False
+
