@@ -8,7 +8,6 @@ class PlayingMode():
     def __init__(self):
         self.running = True
         self.clock = pygame.time.Clock()
-        # self.board = Board(40,40)
         self.all_sprite = pygame.sprite.Group()
         self.boards = pygame.sprite.Group()
         self._create_board()
@@ -37,28 +36,36 @@ class PlayingMode():
             self.running = False
 
     def _create_board(self):
-        self.board = Board(WIDTH /2, HEIGHT - 10, WIDTH, 20)
-        self.boards.add(self.board)#
+        self.board = Board(WIDTH /2, HEIGHT - 40, WIDTH, 40)
+        self.boards.add(self.board)
         self.all_sprite.add(self.board)
-        for i in range(6):
-            self.board = Board(random.randint(20, WIDTH), random.randint(0, HEIGHT), random.randint(100,200), 20)
-            self.boards.add(self.board)#
-            self.all_sprite.add(self.board)
+        self.board = Board(random.randint(20, WIDTH), random.randint(0, 100), random.randint(100,200), 30)
+        self.boards.add(self.board)
+        self.all_sprite.add(self.board)
+        self.board = Board(random.randint(20, WIDTH), random.randint(150, 250), random.randint(100,200), 30)
+        self.boards.add(self.board)
+        self.all_sprite.add(self.board)
+        self.board = Board(random.randint(20, WIDTH), random.randint(300, 400), random.randint(100,200), 30)
+        self.boards.add(self.board)
+        self.all_sprite.add(self.board)
+        self.board = Board(random.randint(20, WIDTH), random.randint(450, 550), random.randint(100,200), 30)
+        self.boards.add(self.board)
+        self.all_sprite.add(self.board)
 
     def scroll_window(self):
         if self.player.rect.top < 100:
-            for self.board in self.boards:#原：for board in self.boards:
-                self.board.rect.centery += 3#board.rect.centery += 3
+            for self.board in self.boards:
+                self.board.rect.centery += 3
         if self.player.rect.top < 0:
             self.player.rect.top = 0
 
-        if len(self.boards) <=5:
-            self.board = Board(random.randint(0, 389), -80, random.randint(100,200), 20)
+        if len(self.boards) <=6:
+            self.board = Board(random.randint(0, 389), -50, random.randint(100,200), 20)
             self.boards.add(self.board)
             self.all_sprite.add(self.board)
 
     def collision(self):
-        hits = pygame.sprite.spritecollide(self.player,self.boards, False)
+        hits = pygame.sprite.spritecollide(self.player,self.boards, False, pygame.sprite.collide_mask)
         if hits:
             self.player.rect.bottom = hits[0].rect.top
             self.player.velocity_y = 0

@@ -18,9 +18,9 @@ class Player(pygame.sprite.Sprite):
 
     def update(self, command, is_collide):
         # TODO 1 change state
-        if "Jump" in command and is_collide:
+        # if is_collide and "Jump" in command:
+        if is_collide:
             self.jump()
-
         self.move(command)
         self.keep_in_screen()
         self.velocity_y = self.velocity_y + self.acceleration * self.time_interval
@@ -44,5 +44,5 @@ class Player(pygame.sprite.Sprite):
         pass
 
     def jump(self):
-        self.velocity_y = -15
+        self.velocity_y = -10
         # self.acceleration = 9.8
