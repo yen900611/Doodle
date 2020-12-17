@@ -9,10 +9,9 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (90, 90))
         self.rect = self.image.get_rect()
         self.rect.centerx = x
-        self.rect.centery = y
         self.acceleration = 9.8 #加速度
         self.velocity_y = 0
-        self.height = 0
+        self.height = y
         self.time_interval = 1 / FPS
         self.state ="START" # BEGIN JUMP-UP JUMP-DOWN
 
@@ -44,5 +43,5 @@ class Player(pygame.sprite.Sprite):
         pass
 
     def jump(self):
-        self.velocity_y = -10
+        self.velocity_y = -5
         # self.acceleration = 9.8

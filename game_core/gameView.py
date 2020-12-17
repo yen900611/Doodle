@@ -24,12 +24,14 @@ class PygameView():
         all_sprite = None
         if data["Address"] == self.address:
             all_sprite = data["Data"]
+            self.height = data["height"]
         self.draw_screen()
+        for sprite in all_sprite:
+            sprite.rect.centery = self.height - sprite.height +500
         all_sprite.draw(self.screen)
         pass
 
     def draw_screen(self):
-        self.screen.fill((WHITE))
 
         if self.height <= HEIGHT:
             rel_y = self.height % self.bg_image_1.get_rect().height
